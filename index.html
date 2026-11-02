@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f6">
+  <meta name="description" content="Watch the video for information about the app.">
+  <title>App Information</title>
+  <style>
+    :root { color-scheme: light; --green:#159447; --green-dark:#10783a; --ink:#17231c; --muted:#68756d; --surface:#fff; --page:#f3f7f4; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; padding:28px 16px; display:flex; align-items:center; justify-content:center; background:var(--page); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { width:min(100%,760px); padding:clamp(18px,4vw,30px); background:var(--surface); border:1px solid #e5ece7; border-radius:22px; box-shadow:0 14px 40px rgba(20,55,32,.08); }
+    h1 { margin:0 0 18px; text-align:center; font-size:clamp(23px,4vw,30px); line-height:1.2; letter-spacing:-.6px; }
+    .video-wrap { overflow:hidden; border-radius:14px; background:#101512; border:1px solid #e4e9e5; }
+    video { display:block; width:100%; max-height:72vh; aspect-ratio:16/9; object-fit:contain; background:#101512; }
+    .download { display:flex; align-items:center; justify-content:center; width:100%; min-height:62px; margin-top:18px; padding:16px 22px; border-radius:13px; background:var(--green); color:#fff; text-decoration:none; text-align:center; font-size:20px; font-weight:750; letter-spacing:.1px; box-shadow:0 6px 16px rgba(21,148,71,.22); transition:background .18s ease,transform .18s ease,box-shadow .18s ease; }
+    .download:hover { background:var(--green-dark); box-shadow:0 8px 20px rgba(21,148,71,.25); transform:translateY(-1px); }
+    .download:focus-visible { outline:3px solid #8bd5a7; outline-offset:4px; }
+    .note { margin:14px 0 0; color:var(--muted); text-align:center; font-size:13px; line-height:1.5; }
+    @media(max-width:480px) { body{padding:14px 10px;} main{padding:16px 12px;border-radius:17px;} video{aspect-ratio:9/16;} .download{min-height:58px;font-size:19px;} }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>App Information</h1>
+    <div class="video-wrap">
+      <video id="appVideo" controls autoplay playsinline preload="auto">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support HTML video.
+      </video>
+    </div>
+    <a class="download" href="https://getblock.me/u/33711336" target="_blank" rel="noopener noreferrer">Download App</a>
+    <p class="note">Please watch the video for the app information.</p>
+  </main>
+  <script>
+    // Try autoplay with sound first. If the browser blocks audible autoplay,
+    // start muted so playback can still begin automatically.
+    const video = document.getElementById('appVideo');
+    video.muted = false;
+    const playAttempt = video.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') {
+      playAttempt.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {
+          // Some browsers or power-saving settings block all autoplay.
+          // The native video controls remain available for the viewer.
+        });
+      });
+    }
+  </script>
+</body>
+</html>
